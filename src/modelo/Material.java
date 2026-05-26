@@ -3,11 +3,9 @@ package modelo;
 public class Material {
     private String tipoMaterial;
     private int puntosPorKg;
-    private String descripcion;
 
-    public Material(String tipoMaterial, String descipcion){
+    public Material(String tipoMaterial){
         setTipoMaterial(tipoMaterial);
-        setDescripcion(descipcion);
     }
 
     public String getTipoMaterial(){
@@ -45,33 +43,6 @@ public class Material {
         return puntosPorKg;
     }
 
-    public String getDescripcion(){
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        boolean valido = true;
-        if (descripcion == null || descripcion.isBlank()) {
-            valido = false;
-        } else {
-            for (int i = 0; i < descripcion.length(); i++) {
-                char c = descripcion.charAt(i);
-                if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') ||
-                        (c >= '0' && c <= '9') || c == ' ' || c == 'á' ||
-                        c == 'é' || c == 'í' || c == 'ó' || c == 'ú' ||
-                        c == 'Á' || c == 'É' || c == 'Í' || c == 'Ó' || c == 'Ú')) {
-                    valido = false;
-                    break;
-                }
-            }
-        }
-        if (valido) {
-            this.descripcion = descripcion;
-        } else {
-            this.descripcion = "Sin descripción";
-        }
-    }
-
     public double calcularPuntos(double kg){
         if(kg > 0){
             return kg*puntosPorKg;
@@ -82,6 +53,6 @@ public class Material {
 
     @Override
     public String toString(){
-        return "Tipo de material: "+tipoMaterial+"\nPuntos por kg: "+puntosPorKg+"\nDescripción: "+descripcion;
+        return "Tipo de material: "+tipoMaterial+"\nPuntos por kg: "+puntosPorKg;
     }
 }

@@ -24,7 +24,7 @@ public class Usuario {
             valido = false;
         } else {
             for(int i = 0; i < nombreCompleto.length(); i++){
-                char c = nombreCompleto.charAt(i);
+                char c = nombreCompleto.charAt(i); // El ciclo sigue mientras i sea menor que el tamaño.
                 if(!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') ||
                         c == ' ' || c == 'á' || c == 'é' || c == 'í' ||
                         c == 'ó' || c == 'ú' || c == 'Á' || c == 'É' ||
@@ -36,7 +36,7 @@ public class Usuario {
             }
         }
         if(valido){
-            this.nombreCompleto = nombreCompleto;
+            this.nombreCompleto = nombreCompleto; //guarda el nombre en el atributo del objeto
         } else {
             this.nombreCompleto = "Sin nombre";
         }

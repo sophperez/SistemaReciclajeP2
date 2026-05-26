@@ -63,33 +63,33 @@ public class GestorReciclaje {
         // entregas de prueba
         // Genesis — nivel PLATINO (3000+)
         Ciudadano c1 = gestorCiudadanos.buscarPorCedula("1712345678");
-        gestorEntregas.registrarEntrega(c1, new Material("METAL", "Metal"), 50);
-        gestorEntregas.registrarEntrega(c1, new Material("ELECTRONICO", "Electronico"), 30);
-        gestorEntregas.registrarEntrega(c1, new Material("PLASTICO", "Plastico"), 20);
+        gestorEntregas.registrarEntrega(c1, new Material("METAL"), 50);
+        gestorEntregas.registrarEntrega(c1, new Material("ELECTRONICO"), 30);
+        gestorEntregas.registrarEntrega(c1, new Material("PLASTICO"), 20);
 
         // Tabatha — nivel ORO (1500+)
         Ciudadano c2 = gestorCiudadanos.buscarPorCedula("1798765432");
-        gestorEntregas.registrarEntrega(c2, new Material("METAL", "Metal"), 20);
-        gestorEntregas.registrarEntrega(c2, new Material("PLASTICO", "Plastico"), 30);
-        gestorEntregas.registrarEntrega(c2, new Material("VIDRIO", "Vidrio"), 15);
+        gestorEntregas.registrarEntrega(c2, new Material("METAL"), 20);
+        gestorEntregas.registrarEntrega(c2, new Material("PLASTICO"), 30);
+        gestorEntregas.registrarEntrega(c2, new Material("VIDRIO"), 15);
 
         // Naomi — nivel PLATA (500+)
         Ciudadano c3 = gestorCiudadanos.buscarPorCedula("1756781234");
-        gestorEntregas.registrarEntrega(c3, new Material("PAPEL", "Papel"), 30);
-        gestorEntregas.registrarEntrega(c3, new Material("PLASTICO", "Plastico"), 20);
+        gestorEntregas.registrarEntrega(c3, new Material("PAPEL"), 30);
+        gestorEntregas.registrarEntrega(c3, new Material("PLASTICO"), 20);
 
         // Sophia — nivel PLATA (500+)
         Ciudadano c4 = gestorCiudadanos.buscarPorCedula("1734567890");
-        gestorEntregas.registrarEntrega(c4, new Material("VIDRIO", "Vidrio"), 40);
-        gestorEntregas.registrarEntrega(c4, new Material("PAPEL", "Papel"), 20);
+        gestorEntregas.registrarEntrega(c4, new Material("VIDRIO"), 40);
+        gestorEntregas.registrarEntrega(c4, new Material("PAPEL"), 20);
 
         // Teresa — nivel BRONCE (menos de 500)
         Ciudadano c5 = gestorCiudadanos.buscarPorCedula("1723456789");
-        gestorEntregas.registrarEntrega(c5, new Material("PLASTICO", "Plastico"), 5);
+        gestorEntregas.registrarEntrega(c5, new Material("PLASTICO"), 5);
 
         // Juan — nivel BRONCE (menos de 500)
         Ciudadano c6 = gestorCiudadanos.buscarPorCedula("1745678901");
-        gestorEntregas.registrarEntrega(c6, new Material("PAPEL", "Papel"), 10);
+        gestorEntregas.registrarEntrega(c6, new Material("PAPEL"), 10);
 
         // Valeria — sin entregas aún, nivel BRONCE
     }
@@ -148,7 +148,7 @@ public class GestorReciclaje {
         if(c == null){
             return "Error: Ciudadano no encontrado.";
         }
-        Material material = new Material(tipoMaterial, tipoMaterial);
+        Material material = new Material(tipoMaterial);
         return gestorEntregas.registrarEntrega(c, material, pesoKg);
     }
 
