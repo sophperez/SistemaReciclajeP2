@@ -153,30 +153,91 @@ public class Main {
     }
 
     // ======= REGISTRO =======
-
     public static void registrarCiudadano(){
-        System.out.print("Ingrese nombre completo: ");
-        String nombreCompleto = sc.nextLine();
-        System.out.print("Ingrese cédula: ");
-        String cedula = sc.nextLine();
-        System.out.print("Ingrese correo: ");
-        String correo = sc.nextLine();
-        System.out.print("Ingrese teléfono: ");
-        String telefono = sc.nextLine();
-        System.out.print("Ingrese dirección: ");
-        String direccion = sc.nextLine();
-        System.out.print("Ingrese nombre de usuario: ");
-        String nombreUsuario = sc.nextLine();
-        System.out.print("Ingrese contraseña: ");
-        String contrasena = sc.nextLine();
+        // ===== NOMBRE =====
+        String nombreCompleto;
+        do{
+            System.out.print("Ingrese nombre completo: ");
+            nombreCompleto = sc.nextLine();
+            if(nombreCompleto.isBlank()){
+                System.out.println("Error: El nombre no puede estar vacío.");
+            }
+        }while(nombreCompleto.isBlank());
 
-        String resultado = gestor.registrarCiudadano(nombreCompleto, cedula,
-                correo, telefono, direccion, nombreUsuario, contrasena);
+        // ===== CÉDULA =====
+        String cedula;
+        do{
+            System.out.print("Ingrese cédula: ");
+            cedula = sc.nextLine();
+            if(!esEntero(cedula) || cedula.length() != 10){
+                System.out.println("Error: La cédula debe tener 10 dígitos numéricos.");
+            }
+        }while(!esEntero(cedula) || cedula.length() != 10);
+
+        // ===== CORREO =====
+        String correo;
+        do{
+            System.out.print("Ingrese correo: ");
+            correo = sc.nextLine();
+            if(!correo.contains("@") || !correo.contains(".")){
+                System.out.println("Error: Correo inválido.");
+            }
+        }while(!correo.contains("@") || !correo.contains("."));
+
+        // ===== TELÉFONO =====
+        String telefono;
+        do{
+            System.out.print("Ingrese teléfono: ");
+            telefono = sc.nextLine();
+            if(!esEntero(telefono) || telefono.length() != 10){
+                System.out.println("Error: El teléfono debe tener 10 dígitos.");
+            }
+        }while(!esEntero(telefono) || telefono.length() != 10);
+
+        // ===== DIRECCIÓN =====
+        String direccion;
+        do{
+            System.out.print("Ingrese dirección: ");
+            direccion = sc.nextLine();
+            if(direccion.isBlank()){
+                System.out.println("Error: La dirección no puede estar vacía.");
+            }
+        }while(direccion.isBlank());
+
+        // ===== USERNAME =====
+        String nombreUsuario;
+        do{
+            System.out.print("Ingrese nombre de usuario: ");
+            nombreUsuario = sc.nextLine();
+            if(nombreUsuario.isBlank()){
+                System.out.println("Error: El username no puede estar vacío.");
+            }
+        }while(nombreUsuario.isBlank());
+
+        // ===== CONTRASEÑA =====
+        String contrasena;
+        do{
+            System.out.print("Ingrese contraseña: ");
+            contrasena = sc.nextLine();
+            if(contrasena.length() < 4){
+                System.out.println("Error: La contraseña debe tener mínimo 4 caracteres.");
+            }
+        }while(contrasena.length() < 4);
+
+        // ===== REGISTRO =====
+        String resultado = gestor.registrarCiudadano(
+                nombreCompleto,
+                cedula,
+                correo,
+                telefono,
+                direccion,
+                nombreUsuario,
+                contrasena
+        );
         System.out.println(resultado);
     }
 
     // ======= MENÚ CIUDADANO =======
-
     public static void menuCiudadanoOpciones(){
         int opc = 0;
         String opcion;

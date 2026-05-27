@@ -12,30 +12,24 @@ public class Material {
         return tipoMaterial;
     }
 
-    public void setTipoMaterial(String tipoMaterial){
-        if(tipoMaterial == null || tipoMaterial.isBlank()){
-            this.tipoMaterial = "DESCONOCIDO";
-            this.puntosPorKg = 0;
-        } else if(tipoMaterial.equalsIgnoreCase("PLASTICO") ||
-                tipoMaterial.equalsIgnoreCase("PLÁSTICO")){
+    private void setTipoMaterial(String tipoMaterial) {
+        if (tipoMaterial.equalsIgnoreCase("PLASTICO") ||
+                tipoMaterial.equalsIgnoreCase("PLÁSTICO")) {
             this.tipoMaterial = "PLÁSTICO";
             this.puntosPorKg = 10;
-        } else if(tipoMaterial.equalsIgnoreCase("VIDRIO")){
+        } else if (tipoMaterial.equalsIgnoreCase("VIDRIO")) {
             this.tipoMaterial = "VIDRIO";
             this.puntosPorKg = 8;
-        } else if(tipoMaterial.equalsIgnoreCase("PAPEL")){
+        } else if (tipoMaterial.equalsIgnoreCase("PAPEL")) {
             this.tipoMaterial = "PAPEL";
             this.puntosPorKg = 5;
-        } else if(tipoMaterial.equalsIgnoreCase("METAL")){
+        } else if (tipoMaterial.equalsIgnoreCase("METAL")) {
             this.tipoMaterial = "METAL";
             this.puntosPorKg = 15;
-        } else if(tipoMaterial.equalsIgnoreCase("ELECTRONICO") ||
-                tipoMaterial.equalsIgnoreCase("ELECTRÓNICO")){
+        } else if (tipoMaterial.equalsIgnoreCase("ELECTRONICO") ||
+                tipoMaterial.equalsIgnoreCase("ELECTRÓNICO")) {
             this.tipoMaterial = "ELECTRÓNICO";
             this.puntosPorKg = 20;
-        } else {
-            this.tipoMaterial = "DESCONOCIDO";
-            this.puntosPorKg = 0;
         }
     }
 

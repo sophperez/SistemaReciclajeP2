@@ -32,14 +32,12 @@ public class Ciudadano extends Usuario{
     }
 
     public void setEstado(String estado){
-        if(estado == null || estado.isBlank()){
-            this.estado = "ACTIVO";
-        } else if(estado.equalsIgnoreCase("ACTIVO")){
-            this.estado = "ACTIVO";
-        } else if(estado.equalsIgnoreCase("INACTIVO")){
-            this.estado = "INACTIVO";
-        } else {
-            this.estado = "ACTIVO";
+        if(estado != null && !estado.isBlank()){
+            if(estado.equalsIgnoreCase("ACTIVO")){
+                this.estado = "ACTIVO";
+            } else if(estado.equalsIgnoreCase("INACTIVO")){
+                this.estado = "INACTIVO";
+            }
         }
     }
 

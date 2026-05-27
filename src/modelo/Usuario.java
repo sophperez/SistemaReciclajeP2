@@ -37,8 +37,6 @@ public class Usuario {
         }
         if(valido){
             this.nombreCompleto = nombreCompleto; //guarda el nombre en el atributo del objeto
-        } else {
-            this.nombreCompleto = "Sin nombre";
         }
     }
 
@@ -64,8 +62,6 @@ public class Usuario {
         }
         if(valido){
             this.cedula = cedula;
-        } else {
-            this.cedula = "0000000000";
         }
     }
 
@@ -90,8 +86,6 @@ public class Usuario {
         }
         if(valido){
             this.correo = correo;
-        } else {
-            this.correo = "sincorreo@indefinido.com";
         }
     }
 
@@ -117,8 +111,6 @@ public class Usuario {
         }
         if(valido){
             this.telefono = telefono;
-        } else {
-            this.telefono = "0000000000";
         }
     }
 
@@ -127,27 +119,8 @@ public class Usuario {
     }
 
     public void setDireccion(String direccion) {
-        boolean valido = true;
-        if(direccion == null || direccion.isBlank()){
-            valido = false;
-        } else {
-            for(int i = 0; i < direccion.length(); i++){
-                char c = direccion.charAt(i);
-                if(!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') ||
-                        (c >= '0' && c <= '9') || c == ' ' || c == '-' ||
-                        c == '.' || c == 'á' || c == 'é' || c == 'í' ||
-                        c == 'ó' || c == 'ú' || c == 'Á' || c == 'É' ||
-                        c == 'Í' || c == 'Ó' || c == 'Ú' || c == 'ñ' ||
-                        c == 'Ñ')){
-                    valido = false;
-                    break;
-                }
-            }
-        }
-        if(valido){
+        if(direccion != null && !direccion.isBlank()){
             this.direccion = direccion;
-        } else {
-            this.direccion = "Sin dirección";
         }
     }
 
@@ -171,8 +144,6 @@ public class Usuario {
         }
         if(valido){
             this.nombreUsuario = nombreUsuario;
-        }else {
-            this.nombreUsuario = "sin_usuario";
         }
     }
 
@@ -181,9 +152,7 @@ public class Usuario {
     }
 
     public void setContrasena(String contrasena) {
-        if(contrasena == null || contrasena.isBlank() || contrasena.length() < 4){
-            this.contrasena = "0000";
-        } else {
+        if(contrasena != null && !contrasena.isBlank() && contrasena.length() >= 4){
             this.contrasena = contrasena;
         }
     }
