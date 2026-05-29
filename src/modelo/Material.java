@@ -7,6 +7,16 @@ public class Material {
     public Material(String tipoMaterial){
         setTipoMaterial(tipoMaterial);
     }
+    public static boolean esTipoValido(String tipo) {
+        if (tipo == null || tipo.isBlank()) return false;
+        return tipo.equalsIgnoreCase("PLASTICO")   ||
+                tipo.equalsIgnoreCase("PLÁSTICO")   ||
+                tipo.equalsIgnoreCase("VIDRIO")      ||
+                tipo.equalsIgnoreCase("PAPEL")       ||
+                tipo.equalsIgnoreCase("METAL")       ||
+                tipo.equalsIgnoreCase("ELECTRONICO") ||
+                tipo.equalsIgnoreCase("ELECTRÓNICO");
+    }
 
     public String getTipoMaterial(){
         return tipoMaterial;

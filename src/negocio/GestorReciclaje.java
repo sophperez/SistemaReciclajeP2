@@ -13,7 +13,7 @@ public class GestorReciclaje {
     private Administrador administrador;
     private Ciudadano ciudadanoActivo;
 
-    public GestorReciclaje(){
+    public GestorReciclaje(){ //se crea el gestor
         gestorCiudadanos = new GestorCiudadanos();
         gestorEntregas = new GestorEntregas();
         gestorRecompensas = new GestorRecompensas();

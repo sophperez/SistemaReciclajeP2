@@ -14,6 +14,7 @@ public class GestorCiudadanos {
         return ciudadanos;
     }
 
+    //Métodos auxiliares para registrarCiudadano()
     private boolean existeCedula(String cedula){
         for(Ciudadano ci : ciudadanos){
             if(ci.getCedula().equals(cedula)){
@@ -32,6 +33,7 @@ public class GestorCiudadanos {
         return false;
     }
 
+    //Encontrar a un ciudadano en específico, se usa en otros métodos
     public Ciudadano buscarPorCedula(String cedula){
         for(Ciudadano ci : ciudadanos){
             if(ci.getCedula().equals(cedula)){
@@ -95,5 +97,4 @@ public class GestorCiudadanos {
         }
         return lista;
     }
-
 }
