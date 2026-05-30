@@ -140,6 +140,10 @@ public class GestorReciclaje {
         return gestorCiudadanos.listarCiudadanos();
     }
 
+    public String resetearContrasena(String cedula, String nuevaContrasena){
+        return gestorCiudadanos.resetearContrasena(cedula, nuevaContrasena);
+    }
+
     // ======= MÓDULO 2: ENTREGAS =======
 
     public String registrarEntrega(String cedula, String tipoMaterial,
@@ -166,6 +170,10 @@ public class GestorReciclaje {
             return "Error: Ciudadano no encontrado.";
         }
         return gestorEntregas.calcularImpactoAmbiental(c);
+    }
+
+    public String reporteMaterialPorTipo(){
+        return gestorEntregas.reporteMaterialPorTipo();
     }
 
     // ======= MÓDULO 3:  RECOMPENSAS =======

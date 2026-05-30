@@ -97,4 +97,14 @@ public class GestorCiudadanos {
         }
         return lista;
     }
+
+    public String resetearContrasena(String cedula, String nuevaContrasena){
+        Ciudadano ci = buscarPorCedula(cedula);
+        if(ci == null){
+            return "Error: Ciudadano no encontrado.";
+        }
+        ci.setContrasena(nuevaContrasena);
+        return "Contraseña restablecida correctamente.";
+    }
+
 }

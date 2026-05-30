@@ -79,8 +79,39 @@ public class GestorEntregas {
         }
         double co2Evitado = totalKg * 1.5;
         double arbolesEquivalentes = co2Evitado / 21;
-        return "===IMPACTO AMBIENTAL===\n"+"Ciudadano: "+ciudadano.getNombreCompleto()+"\n"+"Total kg reciclados: "+totalKg+
-                "\n"+"CO2 evitado: "+co2Evitado+" kg\n"+"Equivalente a: "+String.format("%.2f", arbolesEquivalentes)+
+        return "===IMPACTO AMBIENTAL===\n" +
+                "Ciudadano: " + ciudadano.getNombreCompleto() + "\n" +
+                "Total kg reciclados: " + totalKg + "\n" +
+                "CO2 evitado: " + co2Evitado + " kg\n" +
+                "Equivalente a: " + String.format("%.2f", arbolesEquivalentes) +
                 " árboles salvados";
+    }
+    public String reporteMaterialPorTipo(){
+        if(entregas.isEmpty()){
+            return "No hay entregas registradas.";
+        }
+        double plastico = 0, vidrio = 0, papel = 0, metal = 0, electronico = 0;
+
+        for(Entrega e : entregas){
+            String tipo = e.getMaterial().getTipoMaterial();
+            if(tipo.equals("PLÁSTICO")){
+                plastico += e.getPesoKg();
+            } else if(tipo.equals("VIDRIO")){
+                vidrio += e.getPesoKg();
+            } else if(tipo.equals("PAPEL")){
+                papel += e.getPesoKg();
+            } else if(tipo.equals("METAL")){
+                metal += e.getPesoKg();
+            } else if(tipo.equals("ELECTRÓNICO")){
+                electronico += e.getPesoKg();
+            }
+        }
+        return "===MATERIAL RECICLADO POR TIPO===\n" +
+                "PLÁSTICO:   " + plastico + " kg\n" +
+                "VIDRIO:     " + vidrio + " kg\n" +
+                "PAPEL:      " + papel + " kg\n" +
+                "METAL:      " + metal + " kg\n" +
+                "ELECTRÓNICO:" + electronico + " kg\n" +
+                "TOTAL:      " + (plastico+vidrio+papel+metal+electronico) + " kg";
     }
 }

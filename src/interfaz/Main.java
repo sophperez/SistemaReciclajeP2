@@ -79,6 +79,15 @@ public class Main {
         return valido;
     }
 
+    public static String leerContrasena(String mensaje) {
+        System.out.print(mensaje);
+        if (System.console() != null) {
+            char[] chars = System.console().readPassword();
+            return new String(chars);
+        } else {
+            return sc.nextLine();
+        }
+    }
 
     // ======= MENÚS =======
 
@@ -116,7 +125,9 @@ public class Main {
         System.out.println("4. Actualizar recompensa");
         System.out.println("5. Ver catálogo de recompensas");
         System.out.println("6. Dar de baja a ciudadano");
-        System.out.println("7. Cerrar sesión");
+        System.out.println("7. Ver material reciclado por tipo");
+        System.out.println("8. Resetear contraseña de ciudadano");
+        System.out.println("9. Cerrar sesión");
         System.out.print("Ingrese una opción: ");
     }
 
@@ -125,9 +136,7 @@ public class Main {
     public static void iniciarSesionCiudadano(){
         System.out.print("Ingrese nombre de usuario: ");
         String nombreUsuario = sc.nextLine();
-        System.out.print("Ingrese contraseña: ");
-        String contrasena = sc.nextLine();
-
+        String contrasena = leerContrasena("Ingrese contraseña: ");
         String rol = gestor.iniciarSesionCiudadano(nombreUsuario, contrasena);
         if(rol != null){
             System.out.println("Bienvenido al sistema.");
@@ -140,9 +149,7 @@ public class Main {
     public static void iniciarSesionAdmin(){
         System.out.print("Ingrese nombre de usuario: ");
         String nombreUsuario = sc.nextLine();
-        System.out.print("Ingrese contraseña: ");
-        String contrasena = sc.nextLine();
-
+        String contrasena = leerContrasena("Ingrese contraseña: ");
         String rol = gestor.iniciarSesionAdmin(nombreUsuario, contrasena);
         if(rol != null){
             System.out.println("Bienvenido, Administrador.");
@@ -154,86 +161,73 @@ public class Main {
 
     // ======= REGISTRO =======
     public static void registrarCiudadano(){
-        // ===== NOMBRE =====
-        String nombreCompleto;
-        do{
+        String nombreCompleto, cedula, correo, telefono, direccion, nombreUsuario, contrasena;
+
+        // nombre
+        do {
             System.out.print("Ingrese nombre completo: ");
             nombreCompleto = sc.nextLine();
             if(nombreCompleto.isBlank()){
                 System.out.println("Error: El nombre no puede estar vacío.");
             }
-        }while(nombreCompleto.isBlank());
+        } while(nombreCompleto.isBlank());
 
-        // ===== CÉDULA =====
-        String cedula;
-        do{
-            System.out.print("Ingrese cédula: ");
+        // cédula
+        do {
+            System.out.print("Ingrese cédula (10 dígitos): ");
             cedula = sc.nextLine();
             if(!esEntero(cedula) || cedula.length() != 10){
-                System.out.println("Error: La cédula debe tener 10 dígitos numéricos.");
+                System.out.println("Error: La cédula debe tener exactamente 10 dígitos numéricos.");
             }
-        }while(!esEntero(cedula) || cedula.length() != 10);
+        } while(!esEntero(cedula) || cedula.length() != 10);
 
-        // ===== CORREO =====
-        String correo;
-        do{
+        // correo
+        do {
             System.out.print("Ingrese correo: ");
             correo = sc.nextLine();
             if(!correo.contains("@") || !correo.contains(".")){
-                System.out.println("Error: Correo inválido.");
+                System.out.println("Error: El correo debe contener @ y un punto.");
             }
-        }while(!correo.contains("@") || !correo.contains("."));
+        } while(!correo.contains("@") || !correo.contains("."));
 
-        // ===== TELÉFONO =====
-        String telefono;
-        do{
-            System.out.print("Ingrese teléfono: ");
+        // teléfono — se agrega el 0 automáticamente
+        do {
+            System.out.print("Ingrese teléfono (9 dígitos sin el 0 inicial): ");
             telefono = sc.nextLine();
-            if(!esEntero(telefono) || telefono.length() != 10){
-                System.out.println("Error: El teléfono debe tener 10 dígitos.");
+            if(!esEntero(telefono) || telefono.length() != 9){
+                System.out.println("Error: Ingrese 9 dígitos numéricos sin el 0 inicial.");
             }
-        }while(!esEntero(telefono) || telefono.length() != 10);
+        } while(!esEntero(telefono) || telefono.length() != 9);
+        telefono = "0" + telefono;
 
-        // ===== DIRECCIÓN =====
-        String direccion;
-        do{
+        // dirección
+        do {
             System.out.print("Ingrese dirección: ");
             direccion = sc.nextLine();
             if(direccion.isBlank()){
                 System.out.println("Error: La dirección no puede estar vacía.");
             }
-        }while(direccion.isBlank());
+        } while(direccion.isBlank());
 
-        // ===== USERNAME =====
-        String nombreUsuario;
-        do{
+        // nombre de usuario
+        do {
             System.out.print("Ingrese nombre de usuario: ");
             nombreUsuario = sc.nextLine();
             if(nombreUsuario.isBlank()){
-                System.out.println("Error: El username no puede estar vacío.");
+                System.out.println("Error: El nombre de usuario no puede estar vacío.");
             }
-        }while(nombreUsuario.isBlank());
+        } while(nombreUsuario.isBlank());
 
-        // ===== CONTRASEÑA =====
-        String contrasena;
-        do{
-            System.out.print("Ingrese contraseña: ");
-            contrasena = sc.nextLine();
+        // contraseña
+        do {
+            contrasena = leerContrasena("Ingrese contraseña (mínimo 4 caracteres): ");
             if(contrasena.length() < 4){
                 System.out.println("Error: La contraseña debe tener mínimo 4 caracteres.");
             }
-        }while(contrasena.length() < 4);
+        } while(contrasena.length() < 4);
 
-        // ===== REGISTRO =====
-        String resultado = gestor.registrarCiudadano(
-                nombreCompleto,
-                cedula,
-                correo,
-                telefono,
-                direccion,
-                nombreUsuario,
-                contrasena
-        );
+        String resultado = gestor.registrarCiudadano(nombreCompleto, cedula, correo,
+                telefono, direccion, nombreUsuario, contrasena);
         System.out.println(resultado);
     }
 
@@ -298,111 +292,207 @@ public class Main {
                 case 1: {
                     System.out.println(gestor.listarCiudadanos());
                 } break;
-                case 2: {
-                    registrarEntradaAdmin();
-                } break;
-                case 3: {
-                    registrarRecompensa();
-                } break;
-                case 4: {
-                    actualizarRecompensa();
-                } break;
+                case 2: { registrarEntradaAdmin(); } break;
+                case 3: { registrarRecompensa(); } break;
+                case 4: { actualizarRecompensa(); } break;
                 case 5: {
                     System.out.println(gestor.consultarCatalogo());
                 } break;
-                case 6: {
-                    darDeBaja();
-                } break;
+                case 6: { darDeBaja(); } break;
                 case 7: {
+                    System.out.println(gestor.reporteMaterialPorTipo());
+                } break;
+                case 8: { resetearContrasena(); } break;
+                case 9: {
                     gestor.cerrarSesion();
                     System.out.println("Sesión cerrada correctamente.");
                 } break;
                 default: {
-                    System.out.println("Opción inválida, ingrese un número del 1 al 7.");
+                    System.out.println("Opción inválida, ingrese un número del 1 al 9.");
                 }
             }
-        } while(opc != 7);
+        } while(opc != 9);
     }
 
     // ======= OPERACIONES =======
 
     public static void registrarEntrega(){
-        String cedula, tipoMaterial, peso;
-        cedula = gestor.getCiudadanoActivo().getCedula();
+        String tipoMaterial, peso;
+        String cedula = gestor.getCiudadanoActivo().getCedula();
+
         System.out.println("Tipos de material: PLÁSTICO / VIDRIO / PAPEL / METAL / ELECTRÓNICO");
-        System.out.print("Ingrese tipo de material: ");
-        tipoMaterial = sc.nextLine();
-        System.out.print("Ingrese peso en kg: ");
-        peso = sc.nextLine();
-        if(esDecimal(peso)){
-            System.out.println(gestor.registrarEntrega(cedula, tipoMaterial,
-                    Double.parseDouble(peso)));
-        } else {
-            System.out.println("Error: El peso debe ser un número válido.");
-        }
+        do {
+            System.out.print("Ingrese tipo de material: ");
+            tipoMaterial = sc.nextLine();
+            if(tipoMaterial.isBlank()){
+                System.out.println("Error: Debe ingresar un tipo de material.");
+            }
+        } while(tipoMaterial.isBlank());
+
+        do {
+            System.out.print("Ingrese peso en kg: ");
+            peso = sc.nextLine();
+            if(!esDecimal(peso)){
+                System.out.println("Error: El peso debe ser un número válido mayor a 0.");
+            }
+        } while(!esDecimal(peso));
+
+        System.out.println(gestor.registrarEntrega(cedula, tipoMaterial,
+                Double.parseDouble(peso)));
     }
 
     public static void registrarEntradaAdmin(){
         String cedula, tipoMaterial, peso;
-        System.out.print("Ingrese cédula del ciudadano: ");
-        cedula = sc.nextLine();
+
+        do {
+            System.out.print("Ingrese cédula del ciudadano: ");
+            cedula = sc.nextLine();
+            if(!esEntero(cedula) || cedula.length() != 10){
+                System.out.println("Error: La cédula debe tener 10 dígitos.");
+            }
+        } while(!esEntero(cedula) || cedula.length() != 10);
+
         System.out.println("Tipos de material: PLÁSTICO / VIDRIO / PAPEL / METAL / ELECTRÓNICO");
-        System.out.print("Ingrese tipo de material: ");
-        tipoMaterial = sc.nextLine();
-        System.out.print("Ingrese peso en kg: ");
-        peso = sc.nextLine();
-        if(esDecimal(peso)){
-            System.out.println(gestor.registrarEntrega(cedula, tipoMaterial,
-                    Double.parseDouble(peso)));
-        } else {
-            System.out.println("Error: El peso debe ser un número válido.");
-        }
+        do {
+            System.out.print("Ingrese tipo de material: ");
+            tipoMaterial = sc.nextLine();
+            if(tipoMaterial.isBlank()){
+                System.out.println("Error: Debe ingresar un tipo de material.");
+            }
+        } while(tipoMaterial.isBlank());
+
+        do {
+            System.out.print("Ingrese peso en kg: ");
+            peso = sc.nextLine();
+            if(!esDecimal(peso)){
+                System.out.println("Error: El peso debe ser un número válido mayor a 0.");
+            }
+        } while(!esDecimal(peso));
+
+        System.out.println(gestor.registrarEntrega(cedula, tipoMaterial,
+                Double.parseDouble(peso)));
     }
 
     public static void registrarRecompensa(){
         String nombre, descripcion, categoria, puntos, stock;
-        System.out.print("Ingrese nombre de la recompensa: ");
-        nombre = sc.nextLine();
-        System.out.print("Ingrese descripción: ");
-        descripcion = sc.nextLine();
+
+        do {
+            System.out.print("Ingrese nombre de la recompensa: ");
+            nombre = sc.nextLine();
+            if(nombre.isBlank()){
+                System.out.println("Error: El nombre no puede estar vacío.");
+            }
+        } while(nombre.isBlank());
+
+        do {
+            System.out.print("Ingrese descripción: ");
+            descripcion = sc.nextLine();
+            if(descripcion.isBlank()){
+                System.out.println("Error: La descripción no puede estar vacía.");
+            }
+        } while(descripcion.isBlank());
+
         System.out.println("Categorías: PRODUCTO / DESCUENTO / EXPERIENCIA");
-        System.out.print("Ingrese categoría: ");
-        categoria = sc.nextLine();
-        System.out.print("Ingrese puntos requeridos: ");
-        puntos = sc.nextLine();
-        System.out.print("Ingrese stock disponible: ");
-        stock = sc.nextLine();
-        if(esEntero(puntos) && esEntero(stock)){
-            System.out.println(gestor.registrarRecompensa(nombre, descripcion,
-                    categoria, Integer.parseInt(puntos), Integer.parseInt(stock)));
-        } else {
-            System.out.println("Error: Los puntos y el stock deben ser números enteros.");
-        }
+        do {
+            System.out.print("Ingrese categoría: ");
+            categoria = sc.nextLine();
+            if(!categoria.equalsIgnoreCase("PRODUCTO") &&
+                    !categoria.equalsIgnoreCase("DESCUENTO") &&
+                    !categoria.equalsIgnoreCase("EXPERIENCIA")){
+                System.out.println("Error: Categoría inválida. Use PRODUCTO, DESCUENTO o EXPERIENCIA.");
+            }
+        } while(!categoria.equalsIgnoreCase("PRODUCTO") &&
+                !categoria.equalsIgnoreCase("DESCUENTO") &&
+                !categoria.equalsIgnoreCase("EXPERIENCIA"));
+
+        do {
+            System.out.print("Ingrese puntos requeridos: ");
+            puntos = sc.nextLine();
+            if(!esEntero(puntos) || Integer.parseInt(puntos) <= 0){
+                System.out.println("Error: Los puntos deben ser un número entero mayor a 0.");
+            }
+        } while(!esEntero(puntos) || Integer.parseInt(puntos) <= 0);
+
+        do {
+            System.out.print("Ingrese stock disponible: ");
+            stock = sc.nextLine();
+            if(!esEntero(stock) || Integer.parseInt(stock) <= 0){
+                System.out.println("Error: El stock debe ser un número entero mayor a 0.");
+            }
+        } while(!esEntero(stock) || Integer.parseInt(stock) <= 0);
+
+        System.out.println(gestor.registrarRecompensa(nombre, descripcion,
+                categoria, Integer.parseInt(puntos), Integer.parseInt(stock)));
     }
 
     public static void actualizarRecompensa(){
         String id, descripcion, puntos, stock;
+
         System.out.println(gestor.consultarCatalogo());
-        System.out.print("Ingrese ID de la recompensa a actualizar: ");
-        id = sc.nextLine();
+
+        do {
+            System.out.print("Ingrese ID de la recompensa a actualizar: ");
+            id = sc.nextLine();
+            if(!esEntero(id)){
+                System.out.println("Error: El ID debe ser un número entero.");
+            }
+        } while(!esEntero(id));
+
         System.out.print("Ingrese nueva descripción (Enter para no cambiar): ");
         descripcion = sc.nextLine();
-        System.out.print("Ingrese nuevos puntos requeridos (0 para no cambiar): ");
-        puntos = sc.nextLine();
-        System.out.print("Ingrese nuevo stock (0 para no cambiar): ");
-        stock = sc.nextLine();
-        if(esEntero(id) && esEntero(puntos) && esEntero(stock)){
-            System.out.println(gestor.actualizarRecompensa(Integer.parseInt(id),
-                    descripcion, Integer.parseInt(puntos), Integer.parseInt(stock)));
-        } else {
-            System.out.println("Error: El ID, puntos y stock deben ser números enteros.");
-        }
+
+        do {
+            System.out.print("Ingrese nuevos puntos requeridos (0 para no cambiar): ");
+            puntos = sc.nextLine();
+            if(!esEntero(puntos)){
+                System.out.println("Error: Los puntos deben ser un número entero.");
+            }
+        } while(!esEntero(puntos));
+
+        do {
+            System.out.print("Ingrese nuevo stock (0 para no cambiar): ");
+            stock = sc.nextLine();
+            if(!esEntero(stock)){
+                System.out.println("Error: El stock debe ser un número entero.");
+            }
+        } while(!esEntero(stock));
+
+        System.out.println(gestor.actualizarRecompensa(Integer.parseInt(id),
+                descripcion, Integer.parseInt(puntos), Integer.parseInt(stock)));
     }
 
     public static void darDeBaja(){
+        String cedula;
         System.out.println(gestor.listarCiudadanos());
-        System.out.print("Ingrese cédula del ciudadano a dar de baja: ");
-        String cedula = sc.nextLine();
+        do {
+            System.out.print("Ingrese cédula del ciudadano a dar de baja: ");
+            cedula = sc.nextLine();
+            if(!esEntero(cedula) || cedula.length() != 10){
+                System.out.println("Error: La cédula debe tener 10 dígitos.");
+            }
+        } while(!esEntero(cedula) || cedula.length() != 10);
         System.out.println(gestor.darDeBaja(cedula));
+    }
+
+    public static void resetearContrasena(){
+        String cedula, nuevaContrasena;
+        System.out.println(gestor.listarCiudadanos());
+
+        do {
+            System.out.print("Ingrese cédula del ciudadano: ");
+            cedula = sc.nextLine();
+            if(!esEntero(cedula) || cedula.length() != 10){
+                System.out.println("Error: La cédula debe tener 10 dígitos.");
+            }
+        } while(!esEntero(cedula) || cedula.length() != 10);
+
+        do {
+            nuevaContrasena = leerContrasena("Ingrese nueva contraseña (mínimo 4 caracteres): ");
+            if(nuevaContrasena.length() < 4){
+                System.out.println("Error: La contraseña debe tener mínimo 4 caracteres.");
+            }
+        } while(nuevaContrasena.length() < 4);
+
+        System.out.println(gestor.resetearContrasena(cedula, nuevaContrasena));
     }
 }
